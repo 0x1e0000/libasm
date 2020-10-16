@@ -4,10 +4,10 @@ _ft_strcpy:
 	xor rcx, rcx
 
 _loop:
-	mov al, [rsi + rcx]
+	mov al, BYTE[rsi + rcx] ;al = src[i]
+	mov BYTE[rdi + rcx], al	;dest[i] = al
 	cmp al, 0
 	je _end
-	mov [rdi + rcx], al
 	inc rcx
 	jmp _loop
 

@@ -1,25 +1,30 @@
 global _ft_strcmp
 section .text
+
 _ft_strcmp:
-	xor rcx, rcx
-_loop:
-	mov dl, [rsi + rcx]
-	cmp dl, 0
-	je _end
+	mov rcx, -1
+	mov rax, 0
 
-	mov dh, [rdi + rcx]
-	cmp dh, 0
-	je _end
-
-	cmp dh, dl
-	jne _end
-
+increm:
 	inc rcx
-	jmp _loop
 
-_end:
-	mov al, [rdi + rcx]
-	sub al, [rsi + rcx]
-	movsx rax, al
+loop:
+	cmp BYTE[rdi + rcx], 0
+	je result
+
+	cmp BYTE[rsi + rcx], 0
+	je result
+
+	mov dl, BYTE[rdi + rcx]
+	cmp dl, BYTE[rsi + rcx]
+
+	je increm
+
+result:
+	movzx rdx, BYTE[rdi + rcx]
+	movzx rax, BYTE[rsi + rcx]
+	sub rax, rdx
+	neg rax
+
+return:
 	ret
-
